@@ -4,11 +4,11 @@ import { useUser ,UserButton } from '@clerk/nextjs'
 export default function MiniProfile() {
   const user = useUser()
 
-  console.log(`user=======>>> ${JSON.stringify(user)}`)
+  console.log(`user=======>>> ${JSON.stringify(user && user.firstName)}`)
     return (
     <div className='flex'>
 
-        {/* <UserButton /> */}
+        <UserButton />
         <h3>{user && user.firstName}</h3>
         <p>{user && user.username}</p>
         <p>{user && user.emailAddress}</p>
