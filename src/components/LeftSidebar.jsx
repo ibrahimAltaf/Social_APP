@@ -28,9 +28,7 @@ export default function LeftSidebar() {
         <SignInButton/>
        </SignedOut>
       </button>
-      <SignedIn>
-     <MiniProfile />
-       </SignedIn>
+    
     </div>
   )
 }
