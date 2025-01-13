@@ -9,7 +9,10 @@ export default function MiniProfile() {
     <div className='flex'>
 
         {/* <UserButton /> */}
-        <h3>{user && user.firstname}</h3>
+        <h3>{user && user.firstName}</h3>
+        <p>{user && user.username}</p>
+        <p>{user && user.emailAddress}</p>
+
     </div>
   )
 }
