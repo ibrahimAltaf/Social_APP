@@ -4,7 +4,7 @@ import { useUser } from '@clerk/nextjs'
 export default function MiniProfile() {
   const user = useUser()
 
-  console.log(`user=======>>> ${user}`)
+  console.log(`user=======>>> ${JSON.stringify(user)}`)
     return (
     <div>
       Profile
