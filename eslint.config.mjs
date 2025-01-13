@@ -7,13 +7,20 @@ const __dirname = dirname(__filename);
 
 const compat = new FlatCompat({
     baseDirectory: __dirname,
+    recommendedConfig: {
+        parserOptions: {
+            ecmaVersion: "latest",
+            sourceType: "module"
+        }
+    }
 });
 
 export default [
     ...compat.config({
         extends: ["next/core-web-vitals"],
-        parserOptions: {
-            ecmaVersion: 2021,
-        },
+        rules: {
+            "react/react-in-jsx-scope": "off",
+            "no-unused-vars": "warn"
+        }
     }),
 ];
