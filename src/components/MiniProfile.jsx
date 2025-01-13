@@ -2,7 +2,7 @@
 import React from 'react'
 import { useUser ,UserButton } from '@clerk/nextjs'
 export default function MiniProfile() {
-  const user = useUser()
+  const {user} = useUser()
 
   console.log(`user=======>>> ${JSON.stringify(user && user.firstName)}`)
     return (
