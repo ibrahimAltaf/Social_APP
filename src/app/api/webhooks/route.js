@@ -87,17 +87,7 @@ export async function POST(req) {
     }
   }
 
-  if (eventType === 'user.deleted') {
-    const { id } = evt?.data;
-    try {
-      await deleteUser(id);
-    } catch (error) {
-      console.log('Error deleting user:', error);
-      return new Response('Error occured', {
-        status: 400,
-      });
-    }
-  }
+
 
   return new Response('', { status: 200 });
 }
