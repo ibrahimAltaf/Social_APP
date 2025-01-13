@@ -8,8 +8,8 @@ export default function MiniProfile() {
     return (
     <div className='flex'>
 
-        <UserButton />
-        <h3>{user.username}</h3>
+        {/* <UserButton /> */}
+        <h3>{user && user.firstname}</h3>
     </div>
   )
 }
