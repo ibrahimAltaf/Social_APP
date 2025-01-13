@@ -1,7 +1,7 @@
 import { Webhook } from 'svix';
 import { headers } from 'next/headers';
 import { clerkClient } from '@clerk/nextjs/server';
-import { createOrUpdateUser, deleteUser } from '@/lib/actions/user';
+import { CreateOrUpdateUser, deleteUser } from '@/lib/actions/user';
 
 export async function POST(req) {
   // You can find this in the Clerk Dashboard -> Webhooks -> choose the endpoint
@@ -60,7 +60,7 @@ export async function POST(req) {
     const { id, first_name, last_name, image_url, email_addresses, username } =
       evt?.data;
     try {
-      const user = await createOrUpdateUser(
+      const user = await CreateOrUpdateUser(
         id,
         first_name,
         last_name,
