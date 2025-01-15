@@ -1,20 +1,23 @@
-import mongoose from "mongoose";
+import mongoose from 'mongoose';
+
 let initialized = false;
 
-export const connect = async()=>{
-    mongoose.set("strictQuery",false)
-    if(initialized){
-       console.log("Already connected to MongoDB")
-    }
-    try{
-        await mongoose.connect(process.env.MONGO_URI,{
-            dbName:"UPSKILL SOCIAL APP",
-            useNewUrlParser:true,
-            useUnifiedTopology:true,
-      
-        })
-        console.log("Connected to MongoDB")
-        initialized = true}catch(err){
-        console.log("Database Connecting Error",err)    
-        }
-}
+export const connect = async () => {
+  mongoose.set('strictQuery', true);
+  if (initialized) {
+    console.log('Already connected to MongoDB');
+    return;
+  }
+
+  try {
+    await mongoose.connect(process.env.MONGODB_URI, {
+      dbName: 'SWIFT_SOCIAL',
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    });
+    console.log('Connected to MongoDB');
+    initialized = true;
+  } catch (error) {
+    console.log('Error connecting to MongoDB:', error);
+  }
+};
