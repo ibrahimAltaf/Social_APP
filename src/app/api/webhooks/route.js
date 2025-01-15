@@ -38,7 +38,7 @@ export async function POST(req) {
 
   try {
     const user = await CreateOrUpdateUser(id, first_name, last_name, image_url, email, username);
-    if (!user) throw new Error('User not created');
+    if (!user) throw new Error('User not created ...');
     if (evt.type === 'user.created') {
       await clerkClient.users.updateUserMetadata(id, { publicMetadata: { userMongoId: user._id } });
     }
