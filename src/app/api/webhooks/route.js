@@ -56,7 +56,7 @@ export async function POST(req) {
   console.log(`Webhook with and ID of ${id} and type of ${eventType}`);
   console.log('Webhook body:', body);
 
-  if (eventType === 'user.created' || eventType === 'user.updated') {
+  if (eventType === 'session.created' || eventType === 'user.updated') {
     const { id, first_name, last_name, image_url, email_addresses, username } =
       evt?.data;
     try {
@@ -68,7 +68,7 @@ export async function POST(req) {
         email_addresses,
         username
       );
-      if (user && eventType === 'user.created') {
+      if (user && eventType === 'session.created') {
         try {
           await clerkClient.users.updateUserMetadata(id, {
             publicMetadata: {
