@@ -7,8 +7,8 @@ export const connect = async()=>{
        console.log("Already connected to MongoDB")
     }
     try{
-        await mongoose.connect(process.env.MONGODB_URI,{
-            dbName:"REELZZZ",
+        await mongoose.connect(process.env.MONGO_URI,{
+            dbName:"UPSKILL SOCIAL APP",
             useNewUrlParser:true,
             useUnifiedTopology:true,
       
