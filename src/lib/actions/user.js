@@ -35,3 +35,5 @@ export const deleteUser = async (id) => {
         throw error; 
     }
 }
+
+connect()
