@@ -1,4 +1,4 @@
-import Input from '@/src/components/input'
+import Input from '../../components/input'
 import React from 'react'
 
 export default function page() {
