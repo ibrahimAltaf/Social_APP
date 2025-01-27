@@ -12,7 +12,7 @@ export default function Input() {
 
   return (
     <div className='flex border-b border-gray-200 p-3 space-x3 w-full'>
-        <h1>Hello Dev</h1>
+
         <img src={user.imageUrl} alt="" className='w-12 h-12 rounded-full cursor-pointer hover:brightness-95 object-cover'/>
         <textarea rows={"2"} placeholder='What is happening?' className='w-full outline-none tracking-wide min-h-[50px] text-gray-700' />
         <div className="flex items-center justify-between pt-2.5  ">
