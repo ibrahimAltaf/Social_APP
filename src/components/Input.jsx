@@ -12,7 +12,7 @@ if(!user || !isSignedIn || !isLoaded){
 
   return (
     <div className='flex  '> 
-        <img src={user.imageUrl} alt='user_img' />
+        {/* <img src={user.imageUrl} alt='user_img' /> */}
       <textarea noOfLines={2}/>
       
       <div className="">
