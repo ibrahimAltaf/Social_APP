@@ -1,5 +1,7 @@
-import Input from '../../../src/components/input'
+"use client"
+import Input from '@/src/components/Input'
 import React from 'react'
+
 
 export default function page() {
   return (
