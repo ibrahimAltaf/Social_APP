@@ -12,13 +12,13 @@ export default function Input() {
     if(!isLoaded || !isSignedIn) {
         return null
     }
-const addImageToPost =(e)=>{
-const file = e.target.files[0]
-if(file){
-    SetSelectedFile(file)
-    setImageFileUploading(URL.createObjectURL(file))
-}
-}
+    const addImageToPost = (e) => {
+        const file = e.target.files[0];
+        if (file) {
+          SetSelectedFile(file);
+          SetImageFileURl(URL.createObjectURL(file));  // Corrected this line
+        }
+      };
   return (
     <div className='flex border-b border-gray-200 p-3 space-x3 w-full'>
 
