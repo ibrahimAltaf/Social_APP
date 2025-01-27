@@ -1,5 +1,5 @@
 "use client"
-import Input from '@/src/components/Input'
+import Input from '../../components/Input'
 import React from 'react'
 
 
