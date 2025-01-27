@@ -9,15 +9,19 @@ export default function Input() {
 if(!user || !isSignedIn || !isLoaded){
     return null
 }
+const handleUploadImage = () =>{
 
+}
   return (
     <div className='flex  '> 
         {/* <img src={user.imageUrl} alt='user_img' /> */}
       <textarea noOfLines={2}/>
       
       <div className="">
-      <FaImage /> 
-      <input hidden  type='file' accept='images/*' ref={IMAGEFILEREF} />
+      <FaImage onClick={()=>{
+        IMAGEFILEREF.current.click()
+      }}  /> 
+      <input hidden  type='file' accept='images/*' ref={IMAGEFILEREF} onChange={handleUploadImage} />
 
       <button>Post</button>
       </div>
