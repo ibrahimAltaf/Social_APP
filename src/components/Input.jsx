@@ -10,7 +10,7 @@ export default function UploadHandler() {
 
   // Cloudinary Configuration
   const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dpz0exww7/image/upload";
-  const CLOUDINARY_PRESET = "products"; // Replace with your upload preset if set
+  const CLOUDINARY_PRESET = "products"; 
 
   const handleUploadImage = async (e) => {
     const file = e.target.files[0];
