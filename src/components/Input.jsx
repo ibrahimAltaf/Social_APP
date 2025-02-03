@@ -1,31 +1,41 @@
-"use client";
-import React, { useRef, useState } from "react";
-import axios from "axios";
+"use client"
+import React, { useRef, useState } from 'react';
 import { FaImage } from "react-icons/fa";
+import { useUser } from '@clerk/nextjs';
 
-export default function UploadHandler() {
+export default function Input() {
+  const { user, isSignedIn, isLoaded } = useUser();
   const IMAGEFILEREF = useRef(null);
   const [selectedImage, setSelectedImage] = useState(null);
-  const [uploadedUrl, setUploadedUrl] = useState("");
 
-  // Cloudinary Configuration
-  const CLOUDINARY_URL = "https://api.cloudinary.com/v1_1/dpz0exww7/image/upload";
-  const CLOUDINARY_PRESET = "products"; 
+  if (!user || !isSignedIn || !isLoaded) {
+    return null;
+  }
 
   const handleUploadImage = async (e) => {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
+      
       const formData = new FormData();
       formData.append("file", file);
-      formData.append("upload_preset", CLOUDINARY_PRESET);
+      formData.append("upload_preset", "Ibrahim"); 
+      formData.append("cloud_name", "dpz0exww7"); // Replace with your Cloudinary cloud name
 
+      
+      
       try {
-        const response = await axios.post(CLOUDINARY_URL, formData);
-        setUploadedUrl(response.data.secure_url);
-        alert("Image Uploaded Successfully!");
+        const response = await fetch("https://api.cloudinary.com/v1_1/dpz0exww7/image/upload", {
+          method: "POST",
+          body: formData,
+        });
+
+        const data = await response.json();
+        if (data.secure_url) {
+          alert(`Image uploaded successfully: ${data.secure_url}`);
+        }
       } catch (error) {
-        console.error("Upload Error:", error);
+        console.error("Error uploading the image", error);
       }
     }
   };
@@ -42,10 +52,6 @@ export default function UploadHandler() {
         <div className="relative">
           <img src={selectedImage} alt="Uploaded" className="w-full rounded-lg shadow-md" />
         </div>
-      )}
-
-      {uploadedUrl && (
-        <p className="text-green-600">Uploaded Image URL: {uploadedUrl}</p>
       )}
 
       <div className="flex items-center justify-between">
