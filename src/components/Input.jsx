@@ -2,6 +2,7 @@
 import React, { useRef, useState } from 'react';
 import { FaImage } from "react-icons/fa";
 import { useUser } from '@clerk/nextjs';
+import { CldUploadWidget } from 'next-cloudinary';
 
 export default function Input() {
   const { user, isSignedIn, isLoaded } = useUser();
@@ -17,26 +18,10 @@ export default function Input() {
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
       
-      const formData = new FormData();
-      formData.append("file", file);
-      formData.append("upload_preset", "Ibrahim"); 
-      formData.append("cloud_name", "dpz0exww7"); // Replace with your Cloudinary cloud name
 
       
       
-      try {
-        const response = await fetch("https://api.cloudinary.com/v1_1/dpz0exww7/image/upload", {
-          method: "POST",
-          body: formData,
-        });
-
-        const data = await response.json();
-        if (data.secure_url) {
-          alert(`Image uploaded successfully: ${data.secure_url}`);
-        }
-      } catch (error) {
-        console.error("Error uploading the image", error);
-      }
+      
     }
   };
 
@@ -73,6 +58,17 @@ export default function Input() {
         <button className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600">
           Post
         </button>
+        <CldUploadWidget uploadPreset="Social_app">
+  {({ open }) => {
+    return (
+      <button onClick={() => open()}>
+        Upload an Image
+      </button>
+    );
+  }}
+</CldUploadWidget>
+
+
       </div>
     </div>
   );
