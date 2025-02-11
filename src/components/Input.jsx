@@ -7,6 +7,17 @@ export default function Input() {
   const { user, isSignedIn, isLoaded } = useUser();
   const [selectedImage, setSelectedImage] = useState(null);
 
+
+
+
+
+
+
+
+
+
+
+
   if (!user || !isSignedIn || !isLoaded) {
     return null;
   }
@@ -47,7 +58,7 @@ export default function Input() {
           )}
         </CldUploadWidget>
 
-        <button className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600">
+        <button disabled className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600">
           Post
         </button>
       </div>
