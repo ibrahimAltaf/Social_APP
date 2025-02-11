@@ -11,6 +11,14 @@ export default function Input() {
     return null;
   }
 
+  const handleUpload = (result) => {
+    console.log("Upload Result:", result);
+    if (result.event === "success") {
+      console.log("Image URL:", result.info.secure_url);
+      setSelectedImage(result.info.secure_url);
+    }
+  };
+
   return (
     <div className="flex flex-col p-4 border rounded-lg shadow-lg bg-white w-full max-w-md space-y-4">
       {/* Text Area */}
@@ -37,11 +45,7 @@ export default function Input() {
         {/* Cloudinary Image Upload */}
         <CldUploadWidget
           uploadPreset="CLASS_NEW"
-          onUpload={(result) => {
-            if (result.event === "success") {
-              setSelectedImage(result.info.secure_url);
-            }
-          }}
+          onUpload={handleUpload}
         >
           {({ open }) => (
             <button
