@@ -22,6 +22,14 @@ export default function Input() {
     return null;
   }
 
+  const handleUpload = (result) => {
+    console.log("Upload Result:", result);
+    if (result.event === "success") {
+      console.log("Image URL:", result.info.secure_url);
+      setSelectedImage(result.info.secure_url);
+    }
+  };
+
   return (
     <div className="flex flex-col p-4 border rounded-lg shadow-lg bg-white w-full max-w-md space-y-4">
       {/* Text Area */}
@@ -31,7 +39,7 @@ export default function Input() {
         placeholder="Write your post..."
       />
 
-      {/* Image Preview (Text Area ke neeche) */}
+      {/* Image Preview (Directly below the TextArea) */}
       {selectedImage && (
         <div className="relative mt-2">
           <img
@@ -42,15 +50,18 @@ export default function Input() {
         </div>
       )}
 
+      <p>{selectedImage}</p>
+
       <div className="flex items-center justify-between">
         {/* Cloudinary Image Upload */}
         <CldUploadWidget
           uploadPreset="CLASS_NEW"
-          onUpload={(result) => setSelectedImage(result.info.secure_url)}
+          onUpload={handleUpload}
         >
           {({ open }) => (
             <button
-              style={{ width: "200px", height: "40px" }}
+              type="button"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
               onClick={() => open()}
             >
               Upload an Image
