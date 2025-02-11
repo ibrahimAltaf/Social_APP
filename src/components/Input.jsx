@@ -30,6 +30,7 @@ export default function Input() {
           />
         </div>
       )}
+      <p>{selectedImage}</p>
 
       <div className="flex items-center justify-between">
         {/* Cloudinary Image Upload */}
