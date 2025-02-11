@@ -20,7 +20,7 @@ export default function Input() {
         placeholder="Write your post..."
       />
 
-      {/* Image Preview */}
+      {/* Image Preview (Directly below the TextArea) */}
       {selectedImage && (
         <div className="relative mt-2">
           <img
@@ -30,6 +30,7 @@ export default function Input() {
           />
         </div>
       )}
+
       <p>{selectedImage}</p>
 
       <div className="flex items-center justify-between">
