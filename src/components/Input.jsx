@@ -20,7 +20,7 @@ export default function Input() {
         placeholder="Write your post..."
       />
 
-      {/* Image Preview (Text Area ke neeche) */}
+      {/* Image Preview */}
       {selectedImage && (
         <div className="relative mt-2">
           <img
@@ -35,11 +35,16 @@ export default function Input() {
         {/* Cloudinary Image Upload */}
         <CldUploadWidget
           uploadPreset="CLASS_NEW"
-          onUpload={(result) => setSelectedImage(result.info.secure_url)}
+          onUpload={(result) => {
+            if (result.event === "success") {
+              setSelectedImage(result.info.secure_url);
+            }
+          }}
         >
           {({ open }) => (
             <button
-              style={{ width: "200px", height: "40px" }}
+              type="button"
+              className="px-4 py-2 bg-gray-200 text-gray-700 rounded-md hover:bg-gray-300"
               onClick={() => open()}
             >
               Upload an Image
