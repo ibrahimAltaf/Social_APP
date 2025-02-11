@@ -3,6 +3,7 @@ import React, { useRef, useState } from 'react';
 import { FaImage } from "react-icons/fa";
 import { useUser } from '@clerk/nextjs';
 import { CldUploadWidget } from 'next-cloudinary';
+
 export default function Input() {
   const { user, isSignedIn, isLoaded } = useUser();
   const IMAGEFILEREF = useRef(null);
@@ -16,11 +17,6 @@ export default function Input() {
     const file = e.target.files[0];
     if (file) {
       setSelectedImage(URL.createObjectURL(file));
-      
-
-      
-      
-      
     }
   };
 
@@ -32,6 +28,7 @@ export default function Input() {
         placeholder="Write your post..."
       />
 
+      {/* Image preview display */}
       {selectedImage && (
         <div className="relative">
           <img src={selectedImage} alt="Uploaded" className="w-full rounded-lg shadow-md" />
@@ -39,41 +36,23 @@ export default function Input() {
       )}
 
       <div className="flex items-center justify-between">
-        {/* <div>
-          <FaImage
-            size={24}
-            color="red"
-            onClick={() => IMAGEFILEREF.current.click()}
-            className="cursor-pointer hover:scale-110"
-          />
-          <input
-            hidden
-            type="file"
-            accept="image/*"
-            ref={IMAGEFILEREF}
-            onChange={handleUploadImage}
-          />
-        </div> */}
+        {/* Cloudinary Image Upload */}
         <CldUploadWidget uploadPreset="CLASS_NEW">
-  {({ open }) => {
-    return (
-      <button style={{
-        width:"200px",
-        height:"40px"
-      }} onClick={() => open()}>
-        Upload an Image
-      </button>
-    );
-  }}
-</CldUploadWidget>
-
+          {({ open }) => {
+            return (
+              <button
+                style={{ width: "200px", height: "40px" }}
+                onClick={() => open()}
+              >
+                Upload an Image
+              </button>
+            );
+          }}
+        </CldUploadWidget>
 
         <button className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600">
           Post
         </button>
-  
-
-
       </div>
     </div>
   );
