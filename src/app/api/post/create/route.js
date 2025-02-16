@@ -1,20 +1,15 @@
-import Post from "@/lib/models/post.model";  // Ensure correct import path
-import { connect } from "@/lib/mongodb/mongoose";
+import Post from "../../../../lib/models/post.model.js";
+import { connect } from "../../../../lib/mongodb/mongoose.js";
 import { currentUser } from "@clerk/nextjs/server";
 
-export async function POST(req) {
+export  async function POST(req) {
+    const user = await currentUser(req);
     try {
         await connect();
-        const user = await currentUser();
-
-        if (!user) {
-            return new Response("Unauthorized", { status: 401 });
-        }
-
         const data = await req.json();
 
-        if (user.publicMetadata.userMongoId !== data.userMongoId) {
-            return new Response("Forbidden", { status: 403 });
+        if (!user || user.publicMetadata.userMongoId !== data.userMongoId) {
+            return new Response("Unauthorized", { status: 401 });
         }
 
         const newPost = await Post.create({
@@ -26,16 +21,11 @@ export async function POST(req) {
             image: data.image,
         });
 
-        return new Response(JSON.stringify(newPost), {
-            status: 201,
-            headers: { "Content-Type": "application/json" }
-        });
+        await newPost.save();
 
+        return new Response(JSON.stringify(newPost), { status: 200 });
     } catch (error) {
-        console.error("Error creating post:", error);
-        return new Response(JSON.stringify({ error: "Internal Server Error" }), {
-            status: 500,
-            headers: { "Content-Type": "application/json" }
-        });
+        console.error(error);
+        return new Response("Internal Server Error", { status: 500 });
     }
 }
