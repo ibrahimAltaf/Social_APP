@@ -5,43 +5,44 @@ import { CldUploadWidget } from "next-cloudinary";
 
 export default function Input() {
   const { user, isSignedIn, isLoaded } = useUser();
-  const [selectedImage, setSelectedImage] = useState(null);
   const [input, setInput] = useState("");
-  const [postLoading, setPostLoading] = useState(false);
+  const [selectedImage, setSelectedImage] = useState(null);
+    const [postLoading, setPostLoading] = useState(false);
 
   if (!user || !isSignedIn || !isLoaded) {
     return null;
   }
 
-  const handleUpload = (result) => {
-    if (result.event === "success") {
-      setSelectedImage(result.info.secure_url);
-    }
-  };
+const handleImageUpload =(result) =>{
+  if(result.event = "success"){
+    setSelectedImage(result.info.secure_url)
+  }
+}
+const handleSubmit = async () => {
+  setPostLoading(true)
+  const response = await fetch("/api/post/create",{
+    method:"POST",
+    headers:{
+      "Content-Type":"application/json"
 
-  const handleSubmit = async () => {
-    setPostLoading(true);
+    },
+      body: JSON.stringify({
+            userMongoId:user.publicMetadata.userMongoId,
+        name: user.fullName,
+        username: user.username,
+        text: input,
+        profileImg: user.imageUrl,
+        image: selectedImage,
 
-    const response = await fetch(`/api/posts/create`, {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        userMongoId: user.publicMetadata.userMongoId,
-        name: user.fullName,
-        username: user.username,
-        text: input, 
-        profileImg: user.imageUrl,
-        image: selectedImage, 
-      }),
-    });
+            }),
 
-    setPostLoading(false);
-    setInput("");
-    setSelectedImage(null);
-  };
+  })
+  setPostLoading(false)
+  setSelectedImage(null)
+  setInput("")
 
+
+}
   return (
     <div className="flex flex-col p-4 border rounded-lg shadow-lg bg-white w-full max-w-md space-y-4">
       <textarea
@@ -63,7 +64,7 @@ export default function Input() {
       )}
 
       <div className="flex items-center justify-between">
-        <CldUploadWidget uploadPreset="CLASS_NEW" onUpload={handleUpload}>
+        <CldUploadWidget uploadPreset="CLASS_NEW" onUpload={handleImageUpload} >
           {({ open }) => (
             <button
               type="button"
@@ -76,11 +77,11 @@ export default function Input() {
         </CldUploadWidget>
 
         <button
-          onClick={handleSubmit}
-          disabled={input.trim() === "" || postLoading}
+     onClick={handleSubmit}
           className="px-4 py-2 bg-indigo-500 text-white rounded-md hover:bg-indigo-600"
         >
-          {postLoading ? "Posting..." : "Post"}
+
+          Post
         </button>
       </div>
     </div>
