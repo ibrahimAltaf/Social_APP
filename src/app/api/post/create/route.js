@@ -24,8 +24,9 @@ export  async function POST(req) {
         await newPost.save();
 
         return new Response(JSON.stringify(newPost), { status: 200 });
-    } catch (error) {
-        console.error(error);
-        return new Response("Internal Server Error", { status: 500 });
-    }
+    }catch (error) {
+    console.error("Error creating post:", error);
+    return new Response(JSON.stringify({ message: "Internal Server Error", error: error.message }), { status: 500 });
+}
+
 }
