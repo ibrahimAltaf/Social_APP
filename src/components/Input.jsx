@@ -12,7 +12,7 @@ export default function Input() {
   if (!user || !isSignedIn || !isLoaded) {
     return null;
   }
-
+console.log("=====> data" ,user.publicMetadata.userMongoId)
 const handleImageUpload =(result) =>{
   if(result.event = "success"){
     setSelectedImage(result.info.secure_url)
