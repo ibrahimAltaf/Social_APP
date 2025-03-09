@@ -2,7 +2,7 @@ import Post from "../../../../lib/models/post.model.js";
 import { connect } from "../../../../lib/mongodb/mongoose.js";
 import { currentUser } from "@clerk/nextjs/server";
 
-export  async function POST(req) {
+export  const POST = async(req) => {
     const user = await currentUser(req);
     try {
         await connect();
