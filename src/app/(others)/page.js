@@ -1,4 +1,5 @@
 "use client";
+import Feed from "../../components/Feed";
 import Input from "../../components/Input";
 import React, { useEffect, useState } from "react";
 
@@ -34,7 +35,7 @@ export default function Home() {
         <h2 className="text-lg sm:text-xl font-bold">Home</h2>
         <Input />
       </div>
-
+<Feed data={data}/>
       
     </div>
   );
