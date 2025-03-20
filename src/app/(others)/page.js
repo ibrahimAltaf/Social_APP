@@ -3,6 +3,16 @@ import Input from "../../components/Input";
 import React, { useEffect, useState } from "react";
 
 export default async function Home() {
+let data = null;
+try {
+  const result = await fetch(process.env.API_URL + "/api/post/all",{
+    method:"POST",
+    cache:"no-cache",
+  });
+  data = await result.json();
+} catch (error) {
+  console.log("Error fetching posts:", error);
+}
 
 
   return (
