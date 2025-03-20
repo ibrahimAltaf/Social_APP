@@ -4,16 +4,22 @@ import React, { useEffect, useState } from "react";
 
 export default async function Home() {
 let data = null;
-try {
-  const result = await fetch(process.env.API_URL + "/api/post/all",{
-    method:"POST",
-    cache:"no-cache",
-  });
-  data = await result.json();
-} catch (error) {
-  console.log("Error fetching posts:", error);
-}
+useEffect(() => {
+ \getAllPost()
+}, [third])
 
+const getAllPost = () =>{
+  try {
+    const result = await fetch(process.env.API_URL + "/api/post/all",{
+      method:"POST",
+      cache:"no-cache",
+    });
+    data = await result.json();
+  } catch (error) {
+    console.log("Error fetching posts:", error);
+  }
+  
+}
 
   return (
     <div className="min-h-screen max-w-xl mx-auto border-r border-l">
