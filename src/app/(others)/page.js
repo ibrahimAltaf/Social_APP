@@ -5,7 +5,7 @@ import React, { useEffect, useState } from "react";
 export default async function Home() {
 let data = null;
 useEffect(() => {
- \getAllPost()
+ getAllPost()
 }, [third])
 
 const getAllPost = () =>{
