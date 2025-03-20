@@ -4,7 +4,6 @@ import React, { useEffect, useState } from "react";
 
 export default function Home() {
   const [data, setData] = useState([]);
-
   useEffect(() => {
     const getAllPost = async () => {
       try {
@@ -12,15 +11,22 @@ export default function Home() {
           method: "POST",
           cache: "no-cache",
         });
+  
+        if (!result.ok) {
+          throw new Error(`HTTP error! Status: ${result.status}`);
+        }
+  
         const jsonData = await result.json();
+        console.log("Fetched Data:", jsonData);
         setData(jsonData); 
       } catch (error) {
         console.log("Error fetching posts:", error);
       }
     };
-
+  
     getAllPost();
-  }, []); 
+  }, []);
+  
 
   return (
     <div className="min-h-screen max-w-xl mx-auto border-r border-l">
@@ -29,18 +35,7 @@ export default function Home() {
         <Input />
       </div>
 
-      <div className="p-4">
-        {data.length > 0 ? (
-          data.map((post, index) => (
-            <div key={index} className="p-2 border-b border-gray-200">
-              <h3 className="font-bold">{post.title}</h3>
-              <p>{post.content}</p>
-            </div>
-          ))
-        ) : (
-          <p className="text-center text-gray-500">No posts available</p>
-        )}
-      </div>
+      
     </div>
   );
 }
