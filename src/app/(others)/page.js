@@ -8,7 +8,7 @@ export default function Home() {
   useEffect(() => {
     const getAllPost = async () => {
       try {
-        const result = await fetch(process.env.API_URL + "/api/post/all", {
+        const result = await fetch("https://social-app-two-gold.vercel.app/api/post/all", {
           method: "POST",
           cache: "no-cache",
         });
