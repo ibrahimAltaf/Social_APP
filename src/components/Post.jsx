@@ -24,7 +24,7 @@ const Post = ({post}) => {
             </span>
             {/* yahan par mene ments sa time niakala hai ye meen smjahta nahi hai */}
             <span>
-              {moment(post?.createdAt).add.fromNow()}
+              {moment(post?.createdAt).fromNow()}
             </span>
           </div>
           <HiDotsHorizontal />
