@@ -3,30 +3,35 @@ import React, { useEffect, useState } from 'react';
 import { HiOutlineChat, HiOutlineHeart, HiOutlineTrash ,HiHeart} from 'react-icons/hi';
 
 import { useUser } from '@clerk/nextjs';
-import { useRouter } from 'next/router';
+import { useRouter } from 'next/navigation';
 export default function Icon({post}) {
     const [isLiked,setLiked] =useState(false)
     const [likes,setlikes]=useState(post.likes || [])
     const {user} = useUser()
     const router = useRouter()
-    const likePost = async() =>{
-        if(!user) {
-            return router.push("/sign-in")
+    const likePost = async () => {
+        if (!user) {
+            return router.push("/sign-in");
         }
-        const like = await fetch("/api/post/like",{
-            method:'PUT',
-            headers:{
-                "Content-Type" :"application/json"
+    
+        const response = await fetch("/api/post/like", {
+            method: 'PUT',
+            headers: {
+                "Content-Type": "application/json"
             },
-            body: JSON.stringify({postId:post._id})
-        })
-        if(like && isLiked) {
-            setlikes(like.filter((like)=>like !== user.publicMetadata.userMongoId))
-        }if(like && !isLiked){
-            setlikes([...likes,user.publicMetadata.userMongoId])
+            body: JSON.stringify({ postId: post._id })
+        });
+    
+        if (!response.ok) {
+            console.error("Error liking post");
+            return;
         }
-
-    }
+    
+        const updatedPost = await response.json();
+    
+        setlikes(updatedPost.likes);  
+        setLiked(updatedPost.likes.includes(user.publicMetadata.userMongoId));
+    };
     useEffect(()=>{
 if(user && likes?.includes(user.publicMetadata.userMongoId)){
     setLiked(true)
