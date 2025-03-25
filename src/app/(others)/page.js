@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 export default async function Home() {
   let data = null;
   try {
-    const response = await fetch("https://social-app-two-gold.vercel.app/api/post/all", {
+    const response = await fetch("/api/post/all", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
