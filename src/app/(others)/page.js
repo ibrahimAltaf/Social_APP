@@ -6,7 +6,7 @@ import React, { useEffect, useState } from "react";
 export default async function Home() {
   let data = null;
   try {
-    const result = await fetch('/api/post/all', {
+    const result = await fetch('https://social-app-two-gold.vercel.app/api/post/all', {
       method: 'POST',
       cache: 'no-store',
     });
