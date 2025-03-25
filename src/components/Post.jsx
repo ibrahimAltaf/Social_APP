@@ -26,7 +26,7 @@ const Post = ({post}) => {
         </div>
       </div>
       </Link>
-      post
+      postttt
     </div>
   )
 }
