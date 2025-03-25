@@ -6,11 +6,15 @@ import React, { useEffect, useState } from "react";
 export default async function Home() {
   let data = null;
   try {
-    const result = await fetch('https://social-app-two-gold.vercel.app/api/post/all', {
-      method: 'POST',
-      cache: 'no-store',
+    const response = await fetch("https://social-app-two-gold.vercel.app/api/post/all", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
     });
-    data = await result.json();
+  
+    const data = await response.json();
+    res.status(response.status).json(data);
   } catch (error) {
     console.error('Error fetching posts:', error);
   }
