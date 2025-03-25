@@ -5,7 +5,7 @@ import moment from 'moment';
 import Icon from './Icon';
 
 const Post = ({ post }) => {
-  if (!post) return null; // Ensure post is not undefined
+  if (!post) return null; // Agar post undefined ho, to component return mat karo
 
   return (
     <div className='flex p-3 border-b border-gray-200 w-full hover:bg-gray-100'>
@@ -42,8 +42,7 @@ const Post = ({ post }) => {
             <img src={post.image} className='rounded-2xl mr-2' alt="Post Image" />
           </Link>
         )}
-
-        <Icon />
+        <Icon post={post} id={post.id}/>
       </div>
     </div>
   );
