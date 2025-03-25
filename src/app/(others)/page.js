@@ -13,10 +13,7 @@ export default function Home() {
           cache: "no-cache",
         });
   
-        if (!result.ok) {
-          throw new Error(`HTTP error! Status: ${result.status}`);
-        }
-  
+       
         const jsonData = await result.json();
         console.log("Fetched Data:", jsonData);
         setData(jsonData); 
@@ -27,7 +24,7 @@ export default function Home() {
   
     getAllPost();
   }, []);
-  
+  console.log("page data set ===>" + data)
 
   return (
     <div className="min-h-screen max-w-xl mx-auto border-r border-l">
