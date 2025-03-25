@@ -7,6 +7,11 @@ export const POST = async (req) => {
       const feedPosts = await Post.find().sort({ createdAt: -1 });
       return new Response(JSON.stringify(feedPosts), {
         status: 200,
+        headers: {
+            "Access-Control-Allow-Origin": "*",
+            "Access-Control-Allow-Methods": "GET, POST, OPTIONS",
+            "Access-Control-Allow-Headers": "Content-Type, Authorization",
+          },
       });
     } catch (error) {
       console.log('Error getting posts:', error);
