@@ -21,7 +21,7 @@ export default function Home() {
         }
 
         const jsonData = await response.json();
-        setData(jsonData); // ✅ State update karein
+        setData(jsonData); 
       } catch (error) {
         console.error("Error fetching posts:", error);
       }
