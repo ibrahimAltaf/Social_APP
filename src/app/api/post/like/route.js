@@ -1,30 +1,40 @@
 import Post from "../../../../lib/models/post.model"
-import {connect} from "../../../../lib/mongodb/mongoose"
-import {currentUser} from "@clerk/nextjs/server"
+import { connect } from "../../../../lib/mongodb/mongoose"
+import { currentUser } from "@clerk/nextjs/server"
 
-export const PUT = async (req)=>{
-    const user = await currentUser()
-try {
-    await connect()
-    const data = await req.json()
-    if(!user){
-    return {status:401,body:"Unauthorized"}
+export const PUT = async (req) => {
+    try {
+        await connect()
+        const user = await currentUser()
+        if (!user) {
+            return new Response(JSON.stringify({ message: "Unauthorized" }), { status: 401 })
+        }
+
+        const data = await req.json()
+        const post = await Post.findById(data.postId)
+
+        if (!post) {
+            return new Response(JSON.stringify({ message: "Post not found" }), { status: 404 })
+        }
+
+        let updatedPost;
+        if (post.likes.includes(user.publicMetadata.userMongoId)) {
+            updatedPost = await Post.findByIdAndUpdate(
+                data.postId, 
+                { $pull: { likes: user.publicMetadata.userMongoId } },
+                { new: true }
+            )
+        } else {
+            updatedPost = await Post.findByIdAndUpdate(
+                data.postId, 
+                { $addToSet: { likes: user.publicMetadata.userMongoId } },
+                { new: true }
+            )
+        }
+
+        return new Response(JSON.stringify(updatedPost), { status: 200 })
+    } catch (error) {
+        console.error("Error liking post:", error)
+        return new Response(JSON.stringify({ message: "Error liking post" }), { status: 500 })
     }
-    const post =await Post.findById(data.postId)
-    if(post.likes.includes(user.publicMetadata.userMongoId)){
-        const updatePost = await Post.findByIdAndUpdate(
-            data.postId,{$pull:{likes:user.publicMetadata.userMongoId}},
-            {new:true}
-        )
-        return new Response(JSON.stringify(updatePost),{status:200})
-    }else {
-        const updatePost = await Post.findByIdAndUpdate(data.postId,{$addToSet:{
-            likes:user.publicMetadata.userMongoId
-        }},{new:true})
-        return new Response(JSON.stringify(updatePost),{status:200})
-    }
-} catch (error) {
-    console.log(`Error liking post `,error)
-    return new Response(`Error Liking Post`,{status:500})
-}
 }
