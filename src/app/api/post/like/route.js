@@ -14,7 +14,7 @@ export const PUT = async (req) => {
         const post = await Post.findById(data.postId)
 
         if (!post) {
-            return new Response(JSON.stringify({ message: "Post not found" }), { status: 404 })
+            return new Response(JSON.stringify({ message: "Post not found1" }), { status: 404 })
         }
 
         let updatedPost;
