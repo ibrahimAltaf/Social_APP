@@ -5,6 +5,7 @@ import { HiOutlineDotsHorizontal } from "react-icons/hi";
 import moment from 'moment';
 
 const Post = ({post}) => {
+  console.log("oist data===>" , post)
   return (
     <div className='flex p-3 border-b border-gray-200 w-full hover:bg-gray-100'>
       <Link>
