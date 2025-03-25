@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from 'react';
 import { HiOutlineChat, HiOutlineHeart, HiOutlineTrash ,HiHeart} from 'react-icons/hi';
-import { useState,useEffect } from 'react';
+
 import { useUser } from '@clerk/nextjs';
 import { useRouter } from 'next/router';
 export default function Icon({post}) {
