@@ -2,6 +2,7 @@ import React from 'react';
 import Link from "next/link";
 import { HiDotsHorizontal } from "react-icons/hi";
 import moment from 'moment';
+import Icon from './Icon';
 
 const Post = ({ post }) => {
   if (!post) return null; // Agar post undefined ho, to component return mat karo
@@ -41,6 +42,7 @@ const Post = ({ post }) => {
             <img src={post.image} className='rounded-2xl mr-2' alt="Post Image" />
           </Link>
         )}
+        <Icon post={post} id={post.id}/>
       </div>
     </div>
   );
